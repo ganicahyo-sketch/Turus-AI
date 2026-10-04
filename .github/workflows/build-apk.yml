@@ -36,10 +36,10 @@ jobs:
         run: |
           sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
-      - name: Set up Gradle 9.6
+      - name: Set up Gradle 9.8
         uses: gradle/actions/setup-gradle@v5
         with:
-          gradle-version: '9.6'
+          gradle-version: '9.8.0'
 
       - name: Build debug APK
         run: gradle --no-daemon :app:assembleDebug --stacktrace
