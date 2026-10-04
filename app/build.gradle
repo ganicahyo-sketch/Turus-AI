@@ -24,3 +24,4 @@ android {
                     'proguard-rules.pro'
         }
     }
+}
