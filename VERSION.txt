@@ -1,0 +1,10 @@
+Application: ganicahyo@2026 Automatic Irrigation MQTT Dashboard
+Version: 1.3.0
+Package: id.ganicahyo.automaticirrigation
+Min Android: 7.0 (API 24)
+Compile SDK: 35
+Target SDK: 34
+MQTT: Eclipse Paho Java Client 1.2.5
+Firmware protocol: Automatic Irrigation v1.3.0 command/telemetry topics
+New in 1.3.0: resume-auto button; 1–1440-minute calendar-based microSD/ThingSpeak configuration; STA Enterprise EAP-PEAP/TTLS config panel.
+Artifact status: Android Studio source project; APK binary not built in this environment. Use GitHub Actions workflow to build the APK.

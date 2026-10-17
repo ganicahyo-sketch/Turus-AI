@@ -1,0 +1,20 @@
+BUILD APK — GANICAHYO@2026 AUTOMATIC IRRIGATION v1.3.0
+
+Persyaratan:
+- Android Studio terbaru yang mendukung Android Gradle Plugin 8.7.3
+- JDK 17
+- Android SDK Platform 35 dan Build Tools 35.0.0
+
+Langkah:
+1. Ekstrak ZIP dan buka folder Automatic_Irrigation_MQTT_App di Android Studio.
+2. Tunggu Gradle Sync; dependency Paho diunduh dari Maven Central.
+3. Pilih Build > Build Bundle(s) / APK(s) > Build APK(s).
+4. Debug APK: app/build/outputs/apk/debug/app-debug.apk
+
+Automasi:
+Upload folder proyek ini ke repositori GitHub milik Anda, lalu buka Actions > Build Automatic Irrigation APK > Run workflow.
+Unduh artifact bernama automatic-irrigation-debug-apk dari workflow run tersebut.
+
+Catatan: APK belum dibangun di lingkungan ini karena Android SDK, Android build-tools, dan Gradle tidak tersedia di container saat pembuatan berkas.
+
+Fitur v1.3.0: tombol RESUME_AUTO, interval microSD/ThingSpeak 1–1440 menit, dan Wi-Fi STA Enterprise EAP-PEAP/TTLS melalui MQTT.
