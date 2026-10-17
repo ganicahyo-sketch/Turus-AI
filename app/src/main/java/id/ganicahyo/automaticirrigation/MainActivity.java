@@ -581,7 +581,8 @@ public class MainActivity extends Activity {
                     else { sendCommand("DOWNLOAD_SD", jsonOf("name", name, "offset", next)); }
                 } else {
                     String message = cmd + " • " + (object.optBoolean("ok", false) ? "BERHASIL" : "DITOLAK/GAGAL") + ": " + object.optString("message", payload); if (object.has("content")) message += "\n" + object.optString("name", "file") + "\n" + object.optString("content", ""); if (object.has("files")) message += "\n" + object.optString("files", "");
-                    main.post(() -> appendResult(message));
+                    final String resultMessage = message;
+                    main.post(() -> appendResult(resultMessage));
                 }
             }
         } catch (JSONException e) { main.post(() -> appendResult("Payload JSON tidak valid pada " + topic)); }
