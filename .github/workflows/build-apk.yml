@@ -1,72 +1,40 @@
-name: Build APK - STASIUN CUACA DESA TURUS
+name: Build Automatic Irrigation APK
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-
-permissions:
-  contents: read
+    paths:
+      - 'app/**'
+      - '*.gradle'
+      - 'settings.gradle'
+      - 'gradle.properties'
+      - '.github/workflows/build-apk.yml'
 
 jobs:
-  build-apk:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
+  build-debug-apk:
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout source
-        uses: actions/checkout@v5
-
+        uses: actions/checkout@v4
       - name: Set up JDK 17
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
-
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+      - name: Install Android platform and build tools
+        run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0' 'platform-tools'
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v4
         with:
-          packages: platform-tools
-
-      - name: Accept Android SDK licenses
-        run: yes | sdkmanager --licenses >/dev/null || true
-
-      - name: Install Android 16 SDK
-        run: |
-          sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
-
-      - name: Set up Gradle 9.8
-        uses: gradle/actions/setup-gradle@v5
-        with:
-          gradle-version: '9.8.0'
-
+          gradle-version: '8.9'
       - name: Build debug APK
-        run: gradle --no-daemon :app:assembleDebug --stacktrace
-
-      - name: Build release APK
-        run: gradle --no-daemon :app:assembleRelease --stacktrace
-
-      - name: Verify APKs
-        run: |
-          test -f app/build/outputs/apk/debug/app-debug.apk
-          test -f app/build/outputs/apk/release/app-release-unsigned.apk
-          ls -lh app/build/outputs/apk/debug/app-debug.apk
-          ls -lh app/build/outputs/apk/release/app-release-unsigned.apk
-
-      - name: Upload debug APK
-        uses: actions/upload-artifact@v6
+        run: gradle --no-daemon assembleDebug
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: STASIUN-CUACA-DESA-TURUS-v1.0-debug
+          name: automatic-irrigation-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
-
-      - name: Upload release APK
-        uses: actions/upload-artifact@v6
-        with:
-          name: STASIUN-CUACA-DESA-TURUS-v1.0-release
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
-          if-no-files-found: error
-          retention-days: 30
-
