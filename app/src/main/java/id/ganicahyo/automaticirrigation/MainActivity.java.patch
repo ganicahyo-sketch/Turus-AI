@@ -1,0 +1,6 @@
+--- a/app/src/main/java/id/ganicahyo/automaticirrigation/MainActivity.java
++++ b/app/src/main/java/id/ganicahyo/automaticirrigation/MainActivity.java
+@@
+-                    main.post(() -> appendResult(message));
++                    final String resultMessage = message;
++                    main.post(() -> appendResult(resultMessage));
